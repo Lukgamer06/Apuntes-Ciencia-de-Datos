@@ -1,0 +1,6 @@
+streamlit
+streamlit-drawable-canvas
+Pillow
+numpy
+tensorflow==2.20.0
+keras>=3.13,<3.14
