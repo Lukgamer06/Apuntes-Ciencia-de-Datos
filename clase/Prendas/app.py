@@ -75,6 +75,7 @@ if input_mode == "Dibujar en canvas":
 		height=280,
 		width=280,
 		drawing_mode="freedraw",
+		return_image_data=True,
 		key="clothing_canvas",
 	)
 	if canvas_result.image_data is not None:
