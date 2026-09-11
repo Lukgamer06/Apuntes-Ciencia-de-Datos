@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Lector de Placas",
+    "slug": "lector-placas",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "plugins": [["expo-camera", { "cameraPermission": "Permitir que la app use la camara para leer placas" }]],
+    "android": { "permissions": ["CAMERA"] },
+    "ios": { "infoPlist": { "NSCameraUsageDescription": "La camara se usa para detectar y leer placas." } }
+  }
+}

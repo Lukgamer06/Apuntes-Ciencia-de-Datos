@@ -1,0 +1,10 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+python-multipart>=0.0.9
+ultralytics>=8.3,<9
+easyocr>=1.7,<2
+opencv-python-headless>=4.10
+numpy>=2,<3
+Pillow>=10
+torch>=2.5
+torchvision>=0.20
