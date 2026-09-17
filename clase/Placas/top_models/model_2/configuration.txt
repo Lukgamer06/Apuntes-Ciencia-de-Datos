@@ -1,0 +1,21 @@
+{
+  "rank": 2,
+  "trial": 5,
+  "metric": "mAP50-95",
+  "score": 0.9441147356463366,
+  "hyperparameters": {
+    "lr0": 0.001,
+    "lrf": 0.05,
+    "weight_decay": 0.0005,
+    "hsv_h": 0.02,
+    "hsv_s": 0.7,
+    "hsv_v": 0.5,
+    "degrees": 5.0,
+    "scale": 0.5,
+    "fliplr": 0.5,
+    "mosaic": 1.0,
+    "mixup": 0.1,
+    "dropout": 0.1
+  },
+  "weights_file": "best.pt"
+}

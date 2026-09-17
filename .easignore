@@ -1,0 +1,30 @@
+# Exclude the other projects in this Git repository.
+.git/
+.devcontainer/
+runs/
+weights/
+
+# Other projects in clase/
+clase/Apuntes Ciencia de Datos/
+clase/Circulos Concentricos/
+clase/Deployment-Mobile-Yolo-main/
+clase/Prendas/
+clase/Redes densas/
+clase/Taller Práctico Preprocesamiento de Datos y Clasificación con Redes Neuronales/
+
+# Training data and model artifacts outside the mobile app
+clase/Placas/.venv/
+clase/Placas/.venv314/
+clase/Placas/backend/
+clase/Placas/final_test_holdout/
+clase/Placas/models/
+clase/Placas/runs_colab/
+clase/Placas/top_models/
+
+# Reinstallable or local-only files inside the app
+clase/Placas/app/node_modules/
+clase/Placas/app/.expo/
+clase/Placas/app/dist/
+clase/Placas/app/.env
+clase/Placas/app/.env.*
+!clase/Placas/app/.env.example

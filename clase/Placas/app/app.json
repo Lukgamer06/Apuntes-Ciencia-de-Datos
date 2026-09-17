@@ -4,8 +4,34 @@
     "slug": "lector-placas",
     "version": "1.0.0",
     "orientation": "portrait",
-    "plugins": [["expo-camera", { "cameraPermission": "Permitir que la app use la camara para leer placas" }]],
-    "android": { "permissions": ["CAMERA"] },
-    "ios": { "infoPlist": { "NSCameraUsageDescription": "La camara se usa para detectar y leer placas." } }
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Permitir que la app use la camara para leer placas"
+        }
+      ],
+      "expo-asset"
+    ],
+    "android": {
+      "usesCleartextTraffic": true,
+      "permissions": [
+        "CAMERA",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.lardila.lectorplacas"
+    },
+    "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "La camara se usa para detectar y leer placas."
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0d63e16b-63ba-447a-ba7c-63a1f9c1c0d7"
+      }
+    },
+    "owner": "lardila329"
   }
 }

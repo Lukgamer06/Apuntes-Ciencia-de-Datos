@@ -1,0 +1,302 @@
+[
+  {
+    "trial": 2,
+    "score": 0.9455781635277972,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_002/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_001/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.001,
+      "lrf": 0.05,
+      "weight_decay": 0.0005,
+      "hsv_h": 0.02,
+      "hsv_s": 0.7,
+      "hsv_v": 0.5,
+      "degrees": 5.0,
+      "scale": 0.5,
+      "fliplr": 0.5,
+      "mosaic": 1.0,
+      "mixup": 0.1,
+      "dropout": 0.1
+    }
+  },
+  {
+    "trial": 5,
+    "score": 0.9441147356463366,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_005/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_005/weights/last.pt",
+    "hyperparameters": {
+      "lr0": 0.001,
+      "lrf": 0.05,
+      "weight_decay": 0.0005,
+      "hsv_h": 0.02,
+      "hsv_s": 0.7,
+      "hsv_v": 0.5,
+      "degrees": 5.0,
+      "scale": 0.5,
+      "fliplr": 0.5,
+      "mosaic": 1.0,
+      "mixup": 0.1,
+      "dropout": 0.1
+    }
+  },
+  {
+    "trial": 7,
+    "score": 0.9438974919967787,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_007/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_002/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.0005,
+      "lrf": 0.01,
+      "weight_decay": 0.0001,
+      "hsv_h": 0.01,
+      "hsv_s": 0.5,
+      "hsv_v": 0.3,
+      "degrees": 0.0,
+      "scale": 0.3,
+      "fliplr": 0.0,
+      "mosaic": 0.5,
+      "mixup": 0.0,
+      "dropout": 0.0
+    }
+  },
+  {
+    "trial": 4,
+    "score": 0.9437197849893876,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_004/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_002/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.0005,
+      "lrf": 0.01,
+      "weight_decay": 0.0001,
+      "hsv_h": 0.01,
+      "hsv_s": 0.5,
+      "hsv_v": 0.3,
+      "degrees": 0.0,
+      "scale": 0.3,
+      "fliplr": 0.0,
+      "mosaic": 0.5,
+      "mixup": 0.0,
+      "dropout": 0.0
+    }
+  },
+  {
+    "trial": 9,
+    "score": 0.9436944733839223,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_009/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_007/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.0005,
+      "lrf": 0.01,
+      "weight_decay": 0.0001,
+      "hsv_h": 0.01,
+      "hsv_s": 0.5,
+      "hsv_v": 0.3,
+      "degrees": 0.0,
+      "scale": 0.3,
+      "fliplr": 0.0,
+      "mosaic": 0.5,
+      "mixup": 0.0,
+      "dropout": 0.0
+    }
+  },
+  {
+    "trial": 14,
+    "score": 0.9434111172048263,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_014/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_005/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.005,
+      "lrf": 0.1,
+      "weight_decay": 0.001,
+      "hsv_h": 0.01,
+      "hsv_s": 0.5,
+      "hsv_v": 0.3,
+      "degrees": 0.0,
+      "scale": 0.3,
+      "fliplr": 0.0,
+      "mosaic": 0.5,
+      "mixup": 0.0,
+      "dropout": 0.0
+    }
+  },
+  {
+    "trial": 13,
+    "score": 0.9430606789943459,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_013/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_002/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.0005,
+      "lrf": 0.01,
+      "weight_decay": 0.0001,
+      "hsv_h": 0.01,
+      "hsv_s": 0.5,
+      "hsv_v": 0.3,
+      "degrees": 0.0,
+      "scale": 0.3,
+      "fliplr": 0.0,
+      "mosaic": 0.5,
+      "mixup": 0.0,
+      "dropout": 0.0
+    }
+  },
+  {
+    "trial": 15,
+    "score": 0.9419367189656207,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_015/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_007/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.0005,
+      "lrf": 0.01,
+      "weight_decay": 0.0001,
+      "hsv_h": 0.01,
+      "hsv_s": 0.5,
+      "hsv_v": 0.3,
+      "degrees": 0.0,
+      "scale": 0.3,
+      "fliplr": 0.0,
+      "mosaic": 0.5,
+      "mixup": 0.0,
+      "dropout": 0.0
+    }
+  },
+  {
+    "trial": 12,
+    "score": 0.9416563558020977,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_012/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_007/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.0005,
+      "lrf": 0.01,
+      "weight_decay": 0.0001,
+      "hsv_h": 0.01,
+      "hsv_s": 0.5,
+      "hsv_v": 0.3,
+      "degrees": 0.0,
+      "scale": 0.3,
+      "fliplr": 0.0,
+      "mosaic": 0.5,
+      "mixup": 0.0,
+      "dropout": 0.0
+    }
+  },
+  {
+    "trial": 1,
+    "score": 0.9407958949680774,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_001/weights/best.pt",
+    "initialization": "yolov8n.pt",
+    "hyperparameters": {
+      "lr0": 0.0005,
+      "lrf": 0.01,
+      "weight_decay": 0.0001,
+      "hsv_h": 0.01,
+      "hsv_s": 0.5,
+      "hsv_v": 0.3,
+      "degrees": 0.0,
+      "scale": 0.3,
+      "fliplr": 0.0,
+      "mosaic": 0.5,
+      "mixup": 0.0,
+      "dropout": 0.0
+    }
+  },
+  {
+    "trial": 10,
+    "score": 0.93980441790289,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_010/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_002/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.001,
+      "lrf": 0.05,
+      "weight_decay": 0.0005,
+      "hsv_h": 0.02,
+      "hsv_s": 0.7,
+      "hsv_v": 0.5,
+      "degrees": 5.0,
+      "scale": 0.5,
+      "fliplr": 0.5,
+      "mosaic": 1.0,
+      "mixup": 0.1,
+      "dropout": 0.1
+    }
+  },
+  {
+    "trial": 3,
+    "score": 0.9380877720245963,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_003/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_002/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.001,
+      "lrf": 0.05,
+      "weight_decay": 0.0005,
+      "hsv_h": 0.02,
+      "hsv_s": 0.7,
+      "hsv_v": 0.5,
+      "degrees": 5.0,
+      "scale": 0.5,
+      "fliplr": 0.5,
+      "mosaic": 1.0,
+      "mixup": 0.1,
+      "dropout": 0.1
+    }
+  },
+  {
+    "trial": 8,
+    "score": 0.9380272628648386,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_008/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_005/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.001,
+      "lrf": 0.05,
+      "weight_decay": 0.0005,
+      "hsv_h": 0.02,
+      "hsv_s": 0.7,
+      "hsv_v": 0.5,
+      "degrees": 5.0,
+      "scale": 0.5,
+      "fliplr": 0.5,
+      "mosaic": 1.0,
+      "mixup": 0.1,
+      "dropout": 0.1
+    }
+  },
+  {
+    "trial": 11,
+    "score": 0.932366167505883,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_011/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_005/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.005,
+      "lrf": 0.1,
+      "weight_decay": 0.001,
+      "hsv_h": 0.01,
+      "hsv_s": 0.5,
+      "hsv_v": 0.3,
+      "degrees": 0.0,
+      "scale": 0.3,
+      "fliplr": 0.0,
+      "mosaic": 0.5,
+      "mixup": 0.0,
+      "dropout": 0.0
+    }
+  },
+  {
+    "trial": 6,
+    "score": 0.9296694338994709,
+    "weights": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_006/weights/best.pt",
+    "initialization": "/home/lukga/Programacion/CienciaDeDatos/clase/Placas/runs_colab/random_trial_004/weights/best.pt",
+    "hyperparameters": {
+      "lr0": 0.005,
+      "lrf": 0.1,
+      "weight_decay": 0.001,
+      "hsv_h": 0.02,
+      "hsv_s": 0.7,
+      "hsv_v": 0.5,
+      "degrees": 5.0,
+      "scale": 0.5,
+      "fliplr": 0.5,
+      "mosaic": 1.0,
+      "mixup": 0.1,
+      "dropout": 0.1
+    }
+  }
+]

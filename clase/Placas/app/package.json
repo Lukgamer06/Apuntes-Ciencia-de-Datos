@@ -3,7 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
-  "scripts": { "start": "expo start", "android": "expo run:android", "ios": "expo run:ios" },
-  "dependencies": { "expo": "~52.0.0", "expo-camera": "~16.0.18", "react": "18.3.1", "react-native": "0.76.9" },
-  "devDependencies": { "@types/react": "~18.3.12", "typescript": "~5.3.3" }
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  },
+  "dependencies": {
+    "expo": "~52.0.0",
+    "expo-asset": "~11.0.5",
+    "expo-camera": "~16.0.18",
+    "expo-file-system": "~18.0.12",
+    "expo-image-picker": "~16.0.6",
+    "react": "18.3.1",
+    "react-native": "0.76.9"
+  },
+  "devDependencies": {
+    "@types/react": "~18.3.12",
+    "typescript": "~5.3.3"
+  }
 }
