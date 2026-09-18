@@ -25,3 +25,5 @@ Huevos/models/Data*/
 **/__pycache__/
 *.pyc
 
+Huevos/models/egg.v2i.yolov11
+
