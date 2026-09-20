@@ -25,5 +25,7 @@ Huevos/models/Data*/
 **/__pycache__/
 *.pyc
 
-Huevos/models/egg.v2i.yolov11
+Huevos/models/Data
+Huevos/models/yolo_dataset_final_holdout
+Huevos/final_test_holdout
 
