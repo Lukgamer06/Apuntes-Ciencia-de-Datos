@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Egg Vision</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">HUEVOS / VISION EN VIVO</p>
+          <h1>Egg Vision</h1>
+        </div>
+        <div id="connectionBadge" class="badge muted">Backend desconectado</div>
+      </header>
+
+      <section class="workspace">
+        <div class="video-panel">
+          <div class="video-frame" id="videoFrame">
+            <video id="camera" autoplay playsinline muted></video>
+            <canvas id="overlay"></canvas>
+            <div id="cameraPlaceholder" class="placeholder">
+              <span class="placeholder-mark">+</span>
+              <strong>Camara detenida</strong>
+              <span>Inicia el video para comenzar la inferencia.</span>
+            </div>
+            <div class="live-pill"><span></span> LIVE</div>
+          </div>
+          <div class="video-footer">
+            <button id="startButton" class="button primary">Iniciar video</button>
+            <button id="stopButton" class="button secondary" disabled>Detener</button>
+            <span id="frameRate">0 FPS de analisis</span>
+          </div>
+        </div>
+
+        <aside class="control-panel">
+          <div class="panel-heading">
+            <span class="section-kicker">CONTROL</span>
+            <h2>Estado del sistema</h2>
+          </div>
+          <div class="metric"><span>Detecciones actuales</span><strong id="detectionCount">0</strong></div>
+          <div class="metric"><span>Confianza maxima</span><strong id="confidence">--</strong></div>
+          <div id="statusMessage" class="status-message">Listo para iniciar.</div>
+
+          <div class="divider"></div>
+          <div class="panel-heading compact">
+            <span class="section-kicker">ACTUADOR</span>
+            <h2>Motor ESP32</h2>
+          </div>
+          <button id="motorButton" class="motor-button off" disabled>
+            <span class="motor-indicator"></span>
+            <span id="motorLabel">Motor apagado</span>
+          </button>
+          <p id="motorTransport" class="helper">El control queda en simulacion hasta configurar el ESP32.</p>
+        </aside>
+      </section>
+
+      <footer class="footer"><span>Frames procesados sin guardar fotografias.</span><span id="modelStatus">Modelo: consultando...</span></footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
