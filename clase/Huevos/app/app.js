@@ -1,4 +1,4 @@
-const API_URL = (window.EGG_API_URL || 'http://localhost:8000').replace(/\/$/, '');
+const API_URL = (window.EGG_API_URL || 'https://eggsofialucas.duckdns.org/api').replace(/\/$/, '');
 const FRAME_INTERVAL_MS = 180;
 
 const video = document.querySelector('#camera');
