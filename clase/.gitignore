@@ -28,4 +28,6 @@ Huevos/models/Data*/
 Huevos/models/Data
 Huevos/models/yolo_dataset_final_holdout
 Huevos/final_test_holdout
-
+Huevos/runs_colab
+Huevos/top_models
+Huevos/eggs.pem
