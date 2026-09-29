@@ -14,6 +14,8 @@ const statusMessage = document.querySelector('#statusMessage');
 const connectionBadge = document.querySelector('#connectionBadge');
 const modelStatus = document.querySelector('#modelStatus');
 const detectionCount = document.querySelector('#detectionCount');
+const healthyCount = document.querySelector('#healthyCount');
+const brokenCount = document.querySelector('#brokenCount');
 const confidence = document.querySelector('#confidence');
 const frameRate = document.querySelector('#frameRate');
 const livePill = document.querySelector('.live-pill');
@@ -47,13 +49,14 @@ async function checkBackend() {
     const health = await requestJson('/health');
     setConnection(true, 'Backend conectado');
     motorButton.disabled = false;
-    modelStatus.textContent = health.model_exists
-      ? `Modelo: ${health.model_path}`
-      : 'Modelo: falta best.pt';
-    motorTransport.textContent = health.motor_transport === 'esp32'
-      ? 'ESP32 conectado por HTTP.'
-      : 'El control queda en simulacion hasta configurar el ESP32.';
-    if (!health.model_exists) setStatus('Backend conectado, pero falta el modelo entrenado best.pt.', true);
+    const missingModels = [];
+    if (!health.model_exists) missingModels.push('best.pt');
+    if (!health.condition_model_exists) missingModels.push('best1.pt');
+    modelStatus.textContent = missingModels.length
+      ? `Faltan modelos: ${missingModels.join(', ')}`
+      : 'Modelos: presencia y estado listos';
+    motorTransport.textContent = 'El ESP32 consulta el angulo actualizado en su siguiente sondeo.';
+    if (missingModels.length) setStatus(`Backend conectado, pero faltan ${missingModels.join(' y ')}.`, true);
   } catch (error) {
     setConnection(false, 'Backend desconectado');
     motorButton.disabled = true;
@@ -67,6 +70,8 @@ function drawDetections(payload) {
   overlayContext.clearRect(0, 0, overlay.width, overlay.height);
   const detections = payload.detections || [];
   detectionCount.textContent = String(detections.length);
+  healthyCount.textContent = String(detections.filter((item) => (item.condition || item.class_name) === 'sano').length);
+  brokenCount.textContent = String(detections.filter((item) => (item.condition || item.class_name) === 'roto').length);
   confidence.textContent = detections.length
     ? `${Math.round(Math.max(...detections.map((item) => item.confidence)) * 100)}%`
     : '--';
@@ -74,14 +79,15 @@ function drawDetections(payload) {
   overlayContext.lineWidth = Math.max(3, payload.width / 360);
   overlayContext.font = `${Math.max(14, payload.width / 48)}px 'DM Mono', monospace`;
   detections.forEach((item) => {
+    const isBroken = (item.condition || item.class_name) === 'roto';
     const box = item.box;
     const width = box.x2 - box.x1;
     const height = box.y2 - box.y1;
-    overlayContext.strokeStyle = '#d5f06f';
+    overlayContext.strokeStyle = isBroken ? '#ff8e73' : '#d5f06f';
     overlayContext.strokeRect(box.x1, box.y1, width, height);
-    const label = `${item.class_name} ${Math.round(item.confidence * 100)}%`;
+    const label = `${isBroken ? 'Huevo roto' : 'Huevo sano'} ${Math.round(item.confidence * 100)}%`;
     const labelWidth = overlayContext.measureText(label).width + 14;
-    overlayContext.fillStyle = '#d5f06f';
+    overlayContext.fillStyle = isBroken ? '#ff8e73' : '#d5f06f';
     overlayContext.fillRect(box.x1, Math.max(0, box.y1 - 27), labelWidth, 27);
     overlayContext.fillStyle = '#10150e';
     overlayContext.fillText(label, box.x1 + 7, Math.max(18, box.y1 - 8));
@@ -122,6 +128,7 @@ function liveLoop() {
 }
 
 async function startVideo() {
+  placeholder.hidden = true;
   try {
     stream = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false });
     video.srcObject = stream;
@@ -136,6 +143,7 @@ async function startVideo() {
     setStatus('Video en vivo iniciado.');
     liveLoop();
   } catch (error) {
+    placeholder.hidden = false;
     setStatus(`No se pudo acceder a la webcam: ${error.message}`, true);
   }
 }
@@ -166,9 +174,7 @@ async function toggleMotor() {
     motorButton.classList.toggle('on', motorEnabled);
     motorButton.classList.toggle('off', !motorEnabled);
     motorLabel.textContent = motorEnabled ? 'Motor encendido' : 'Motor apagado';
-    motorTransport.textContent = payload.transport === 'esp32'
-      ? 'Orden enviada al ESP32 por HTTP.'
-      : 'Orden registrada en simulacion.';
+    motorTransport.textContent = 'Angulo actualizado; el ESP32 lo leerá en su siguiente consulta.';
   } catch (error) {
     setStatus(error instanceof Error ? error.message : String(error), true);
   } finally {

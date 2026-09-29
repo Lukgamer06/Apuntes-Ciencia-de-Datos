@@ -41,6 +41,8 @@
             <h2>Estado del sistema</h2>
           </div>
           <div class="metric"><span>Detecciones actuales</span><strong id="detectionCount">0</strong></div>
+          <div class="metric"><span>Huevos sanos</span><strong id="healthyCount">0</strong></div>
+          <div class="metric"><span>Huevos rotos</span><strong id="brokenCount">0</strong></div>
           <div class="metric"><span>Confianza maxima</span><strong id="confidence">--</strong></div>
           <div id="statusMessage" class="status-message">Listo para iniciar.</div>
 
@@ -53,7 +55,7 @@
             <span class="motor-indicator"></span>
             <span id="motorLabel">Motor apagado</span>
           </button>
-          <p id="motorTransport" class="helper">El control queda en simulacion hasta configurar el ESP32.</p>
+          <p id="motorTransport" class="helper">El ESP32 consulta el angulo actualizado en su siguiente sondeo.</p>
         </aside>
       </section>
 
