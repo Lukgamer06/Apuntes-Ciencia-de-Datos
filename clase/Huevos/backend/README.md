@@ -10,13 +10,13 @@ python -m pip install -r requirements.txt
 uvicorn backend:app --reload --host 0.0.0.0 --port 8000
 ```
 
-El backend usa `Huevos/models/best.pt` para detectar huevos y `Huevos/models/best1.pt` para clasificar cada recorte como sano o roto. Si los pesos estan en otras rutas:
+El backend usa `Huevos/models/best.pt` unicamente para localizar huevos y recortar cada uno. `best1.pt` determina si el huevo es sano o roto; cada inferencia válida reinicia el temporizador. Mientras el huevo siga detectado, si pasan 10 segundos sin una nueva inferencia válida de `best1.pt`, la app muestra **roto** hasta que llegue otra inferencia. La salida por timeout no lleva confianza. Si los pesos estan en otras rutas:
 
 ```bash
 EGG_MODEL=/ruta/best.pt EGG_CONDITION_MODEL=/ruta/best1.pt uvicorn backend:app --reload --host 0.0.0.0 --port 8000
 ```
 
-La clasificacion con `best1.pt` tiene un limite de 10 segundos por frame. Si vence, los huevos detectados en ese frame se consideran sanos. Se ajusta con `CONDITION_TIMEOUT_SECONDS` (10 por defecto).
+La clasificacion con `best1.pt` tiene un limite de 10 segundos por frame. El mismo valor configura el tiempo sin inferencias válidas antes del estado de fallback "roto"; se ajusta con `CONDITION_TIMEOUT_SECONDS` (10 por defecto). El backend interpreta la clase 0 como sano y la clase 1 como roto cuando el checkpoint tiene nombres genéricos.
 
 Variables opcionales:
 

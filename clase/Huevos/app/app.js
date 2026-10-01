@@ -72,8 +72,11 @@ function drawDetections(payload) {
   detectionCount.textContent = String(detections.length);
   healthyCount.textContent = String(detections.filter((item) => (item.condition || item.class_name) === 'sano').length);
   brokenCount.textContent = String(detections.filter((item) => (item.condition || item.class_name) === 'roto').length);
-  confidence.textContent = detections.length
-    ? `${Math.round(Math.max(...detections.map((item) => item.confidence)) * 100)}%`
+  const confidenceValues = detections
+    .map((item) => item.condition_confidence ?? item.confidence)
+    .filter((value) => Number.isFinite(value));
+  confidence.textContent = confidenceValues.length
+    ? `${Math.round(Math.max(...confidenceValues) * 100)}%`
     : '--';
 
   overlayContext.lineWidth = Math.max(3, payload.width / 360);
@@ -85,7 +88,11 @@ function drawDetections(payload) {
     const height = box.y2 - box.y1;
     overlayContext.strokeStyle = isBroken ? '#ff8e73' : '#d5f06f';
     overlayContext.strokeRect(box.x1, box.y1, width, height);
-    const label = `${isBroken ? 'Huevo roto' : 'Huevo sano'} ${Math.round(item.confidence * 100)}%`;
+    const conditionConfidence = item.condition_confidence ?? item.confidence;
+    const confidenceLabel = Number.isFinite(conditionConfidence)
+      ? ` ${Math.round(conditionConfidence * 100)}%`
+      : '';
+    const label = `${isBroken ? 'Huevo roto' : 'Huevo sano'}${confidenceLabel}`;
     const labelWidth = overlayContext.measureText(label).width + 14;
     overlayContext.fillStyle = isBroken ? '#ff8e73' : '#d5f06f';
     overlayContext.fillRect(box.x1, Math.max(0, box.y1 - 27), labelWidth, 27);

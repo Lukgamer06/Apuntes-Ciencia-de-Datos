@@ -55,9 +55,12 @@ _condition_model: YOLO | None = None
 _model_lock = Lock()
 _condition_model_lock = Lock()
 _condition_inference_lock = Lock()
+_condition_state_lock = Lock()
 motor_enabled = False
 last_servo_state: str | None = None
 servo_angle = SERVO_HOME_ANGLE
+_egg_presence_started_at: float | None = None
+_last_condition_output_at: float | None = None
 
 
 class MotorCommand(BaseModel):
@@ -146,7 +149,7 @@ def is_damaged_class(class_id: int, names: dict | list) -> bool:
     return class_id == 1
 
 
-def classify_egg_crops(crops: list[np.ndarray]) -> list[tuple[bool, float]]:
+def classify_egg_crops(crops: list[np.ndarray]) -> list[tuple[bool, float] | None]:
     if not _condition_inference_lock.acquire(blocking=False):
         raise ConditionModelBusy
     try:
@@ -161,7 +164,7 @@ def classify_egg_crops(crops: list[np.ndarray]) -> list[tuple[bool, float]]:
     finally:
         _condition_inference_lock.release()
 
-    classifications = []
+    classifications: list[tuple[bool, float] | None] = []
     for result in results:
         probabilities = getattr(result, "probs", None)
         if probabilities is not None:
@@ -171,23 +174,29 @@ def classify_egg_crops(crops: list[np.ndarray]) -> list[tuple[bool, float]]:
             continue
 
         result_boxes = result.boxes
-        if result_boxes is None:
-            classifications.append((False, 0.0))
+        if result_boxes is None or len(result_boxes) == 0:
+            classifications.append(None)
             continue
 
-        damaged_confidences = [
-            float(box.conf[0])
-            for box in result_boxes
-            if is_damaged_class(int(box.cls[0]), result.names)
-        ]
-        classifications.append((bool(damaged_confidences), max(damaged_confidences, default=0.0)))
+        best_box = max(result_boxes, key=lambda box: float(box.conf[0]))
+        class_id = int(best_box.cls[0])
+        confidence = float(best_box.conf[0])
+        classifications.append((is_damaged_class(class_id, result.names), confidence))
     return classifications
 
 
 async def infer(image: np.ndarray) -> list[dict[str, object]]:
+    global _egg_presence_started_at, _last_condition_output_at
     eggs = await asyncio.to_thread(detect_eggs, image)
     if not eggs:
+        with _condition_state_lock:
+            _egg_presence_started_at = None
+            _last_condition_output_at = None
         return []
+
+    with _condition_state_lock:
+        if _egg_presence_started_at is None:
+            _egg_presence_started_at = time.monotonic()
 
     crops = [image[y1:y2, x1:x2] for x1, y1, x2, y2, _ in eggs]
     try:
@@ -196,27 +205,49 @@ async def infer(image: np.ndarray) -> list[dict[str, object]]:
             timeout=CONDITION_TIMEOUT_SECONDS,
         )
     except ConditionModelBusy:
-        logger.warning("best1 sigue procesando un frame anterior; se consideran sanos los huevos actuales")
-        classifications = [(False, 0.0)] * len(eggs)
+        logger.warning("best1 sigue procesando un frame anterior; se omiten las clasificaciones actuales")
+        classifications = [None] * len(eggs)
     except asyncio.TimeoutError:
         logger.warning(
-            "best1 supero %.1f segundos; se consideran sanos los huevos de este frame",
+            "best1 supero %.1f segundos; se omiten las clasificaciones de este frame",
             CONDITION_TIMEOUT_SECONDS,
         )
-        classifications = [(False, 0.0)] * len(eggs)
+        classifications = [None] * len(eggs)
+
+    now = time.monotonic()
+    has_condition_output = any(classification is not None for classification in classifications)
+    with _condition_state_lock:
+        if _egg_presence_started_at is None:
+            _egg_presence_started_at = now
+        if has_condition_output:
+            # Una respuesta visible de best1 reinicia el plazo; una etiqueta "roto"
+            # se interpreta como "sano" para este flujo de clasificación.
+            _last_condition_output_at = now
+        timer_started_at = _last_condition_output_at or _egg_presence_started_at
+        timed_out = now - timer_started_at >= CONDITION_TIMEOUT_SECONDS
+        fallback_condition = "roto" if timed_out else "sano"
 
     height, width = image.shape[:2]
     detections = []
-    for (x1, y1, x2, y2, egg_confidence), (damaged, condition_confidence) in zip(eggs, classifications):
-        class_id = 1 if damaged else 0
-        condition = CLASS_NAMES[class_id]
+    for egg, classification in zip(eggs, classifications):
+        x1, y1, x2, y2, _ = egg
+        if classification is None:
+            condition = fallback_condition
+            condition_confidence = None
+            condition_source = "timeout" if timed_out else "waiting"
+        else:
+            damaged, condition_confidence = classification
+            condition = "roto" if damaged else "sano"
+            condition_source = "best1"
+        class_id = 1 if condition == "roto" else 0
         detections.append(
             {
                 "class_id": class_id,
                 "class_name": condition,
                 "condition": condition,
-                "confidence": round(egg_confidence, 4),
-                "condition_confidence": round(condition_confidence, 4),
+                "confidence": round(condition_confidence, 4) if condition_confidence is not None else None,
+                "condition_confidence": round(condition_confidence, 4) if condition_confidence is not None else None,
+                "condition_source": condition_source,
                 "box": {
                     "x1": max(0, min(x1, width)),
                     "y1": max(0, min(y1, height)),
