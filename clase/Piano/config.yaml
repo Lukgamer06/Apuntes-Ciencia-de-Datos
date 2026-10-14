@@ -1,0 +1,36 @@
+window_name: "Air Piano"
+log_level: INFO
+
+video:
+  camera_index: 0
+  width: 1280
+  height: 720
+  target_fps: 30
+  max_hands: 2
+  detection_confidence: 0.65
+  tracking_confidence: 0.60
+
+keyboard:
+  start_octave: 3
+  top: 28
+  height: 180
+  width_ratio: 0.78
+
+gesture:
+  flexion_angle_degrees: 145
+  extension_angle_degrees: 160
+  debounce_ms: 100
+  stable_frames: 2
+  velocity: 100
+  visual_hold_ms: 220
+
+filters:
+  landmark_window_size: 3
+
+audio:
+  # Set to a legally obtained .sf2 file for FluidSynth; null uses the system MIDI synth.
+  soundfont: null
+  sample_rate: 44100
+  audio_driver: null
+  bank: 0
+  preset: 0
