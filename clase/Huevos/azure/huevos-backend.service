@@ -1,0 +1,23 @@
+[Unit]
+Description=Huevos FastAPI inference service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=eggvision
+Group=eggvision
+WorkingDirectory=/opt/huevos/backend
+Environment=YOLO_CONFIG_DIR=/var/lib/huevos/ultralytics
+Environment=MPLCONFIGDIR=/var/lib/huevos/matplotlib
+ExecStart=/opt/huevos/venv/bin/uvicorn backend:app --host 127.0.0.1 --port 8000 --workers 1
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/huevos
+
+[Install]
+WantedBy=multi-user.target

@@ -57,6 +57,24 @@ python -m pip install -r requirements.txt
 uvicorn backend:app --reload --host 0.0.0.0 --port 8000
 ```
 
+## Despliegue actual en Azure
+
+- Web HTTPS: <https://huevos-vision-e24ba427.westus3.cloudapp.azure.com>
+- IP pública estática: `57.154.17.93`
+- Región y VM: West US 3, `Standard_D2ds_v4` (2 vCPU, 8 GiB RAM), Ubuntu 24.04.
+- Nginx sirve `app/` y redirige `/api/` al backend FastAPI, disponible solo en `127.0.0.1:8000`.
+- Los modelos `best.pt` y `best1.pt` se ejecutan en CPU. El backend inicia automáticamente mediante `huevos-backend.service`.
+- HTTPS usa Let's Encrypt con renovación programada. Azure NSG y UFW permiten SSH solo desde la IP de origen configurada; los puertos 80 y 443 son públicos.
+- La API no tiene autenticación de usuario; Nginx limita sus solicitudes a 10 por segundo por IP. No conectar actuadores expuestos a Internet sin añadir autenticación.
+- Estimación orientativa encendida 24/7: USD 90–100 al mes por VM, disco e IP estática, más tráfico saliente. El precio real depende de uso y tarifas de Azure.
+
+Para administrar la VM desde el equipo donde se generó la clave SSH:
+
+```bash
+ssh -i ~/.ssh/huevos-azure azureuser@57.154.17.93
+sudo systemctl status huevos-backend nginx
+```
+
 ## Nota
 
 Este proyecto está orientado a una solución práctica de visión artificial aplicada a una inspección automatizada de huevos, con énfasis en detección, clasificación y control de estado en tiempo real.

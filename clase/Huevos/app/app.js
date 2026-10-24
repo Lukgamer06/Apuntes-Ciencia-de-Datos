@@ -1,4 +1,7 @@
-const API_URL = (window.EGG_API_URL || 'https://eggsofialucas.duckdns.org/api').replace(/\/$/, '');
+const defaultApiUrl = window.location.hostname.endsWith('.cloudapp.azure.com')
+  ? `${window.location.origin}/api`
+  : 'https://eggsofialucas.duckdns.org/api';
+const API_URL = (window.EGG_API_URL || defaultApiUrl).replace(/\/$/, '');
 const FRAME_INTERVAL_MS = 180;
 
 const video = document.querySelector('#camera');
