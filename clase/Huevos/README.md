@@ -59,10 +59,12 @@ uvicorn backend:app --reload --host 0.0.0.0 --port 8000
 
 ## Despliegue actual en Azure
 
-- Web HTTPS: <https://huevos-vision-e24ba427.westus3.cloudapp.azure.com>
+- Web HTTPS principal (DuckDNS, conservada para el ESP32): <https://eggsofialucas.duckdns.org>
+- Hostname alternativo de Azure: <https://huevos-vision-e24ba427.westus3.cloudapp.azure.com>
 - IP pública estática: `57.154.17.93`
 - Región y VM: West US 3, `Standard_D2ds_v4` (2 vCPU, 8 GiB RAM), Ubuntu 24.04.
 - Nginx sirve `app/` y redirige `/api/` al backend FastAPI, disponible solo en `127.0.0.1:8000`.
+- El endpoint `GET /servo` se conserva en el mismo dominio para el ESP32; DuckDNS resuelve a la IP estática de Azure.
 - Los modelos `best.pt` y `best1.pt` se ejecutan en CPU. El backend inicia automáticamente mediante `huevos-backend.service`.
 - HTTPS usa Let's Encrypt con renovación programada. Azure NSG y UFW permiten SSH solo desde la IP de origen configurada; los puertos 80 y 443 son públicos.
 - La API no tiene autenticación de usuario; Nginx limita sus solicitudes a 10 por segundo por IP. No conectar actuadores expuestos a Internet sin añadir autenticación.
@@ -71,8 +73,15 @@ uvicorn backend:app --reload --host 0.0.0.0 --port 8000
 Para administrar la VM desde el equipo donde se generó la clave SSH:
 
 ```bash
+az vm start --resource-group rg-huevos-vision-westus3 --name vm-huevos-vision-01
 ssh -i ~/.ssh/huevos-azure azureuser@57.154.17.93
 sudo systemctl status huevos-backend nginx
+```
+
+Al apagarla para detener el cobro de cómputo, desasígnala desde Azure (la IP pública estática se conserva y puede seguir generando un cargo pequeño):
+
+```bash
+az vm deallocate --resource-group rg-huevos-vision-westus3 --name vm-huevos-vision-01
 ```
 
 ## Nota

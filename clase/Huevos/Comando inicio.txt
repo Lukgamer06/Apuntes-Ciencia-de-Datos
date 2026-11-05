@@ -1,0 +1,1 @@
+az vm start --resource-group rg-huevos-vision-westus3 --name vm-huevos-vision-01

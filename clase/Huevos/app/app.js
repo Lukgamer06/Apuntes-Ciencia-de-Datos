@@ -1,4 +1,5 @@
-const defaultApiUrl = window.location.hostname.endsWith('.cloudapp.azure.com')
+const defaultApiUrl = window.location.hostname === 'eggsofialucas.duckdns.org'
+  || window.location.hostname.endsWith('.cloudapp.azure.com')
   ? `${window.location.origin}/api`
   : 'https://eggsofialucas.duckdns.org/api';
 const API_URL = (window.EGG_API_URL || defaultApiUrl).replace(/\/$/, '');

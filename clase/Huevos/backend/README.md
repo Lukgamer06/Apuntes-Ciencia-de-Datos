@@ -28,6 +28,6 @@ Variables opcionales:
 - `SERVO_HEALTHY_ANGLE=0`
 - `SERVO_DAMAGED_ANGLE=180`
 
-El ESP32 usa GPIO 19 y consulta `GET /servo` cada segundo. La respuesta es un JSON con el angulo actual, por ejemplo `{ "angle": 90 }` al iniciar.
+El ESP32 usa GPIO 19 y consulta `GET https://eggsofialucas.duckdns.org/servo` cada segundo. La respuesta es un JSON con el angulo objetivo actual, por ejemplo `{ "angle": 90 }` al iniciar. El backend actualiza ese objetivo después de cada inferencia: `0` para sano, `180` para roto y vuelve al ángulo de inicio `90` cuando no detecta huevos. El ESP32 mueve físicamente el servo cuando lee el valor; el backend no empuja una orden directa al hardware.
 Cuando el modelo detecta un huevo sano, el backend actualiza el angulo a `0`; cuando detecta uno roto, lo actualiza a `180`. El ESP32 lee el nuevo valor en su siguiente consulta, sin que AWS tenga que conocer la IP del ESP32.
 `SERVO_HOME_ANGLE`, `SERVO_HEALTHY_ANGLE` y `SERVO_DAMAGED_ANGLE` solo admiten `90`, `0` y `180`, respectivamente.

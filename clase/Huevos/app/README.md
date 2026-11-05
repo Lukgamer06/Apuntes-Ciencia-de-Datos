@@ -10,7 +10,7 @@ Desde la carpeta `Huevos/app`:
 python -m http.server 5173
 ```
 
-Abre <http://localhost:5173>. El navegador pedira permiso para la webcam. Por defecto, la app usa el backend HTTPS de AWS en `https://eggsofialucas.duckdns.org/api`; en un hostname `*.cloudapp.azure.com`, usa `/api` en el mismo origen para que el frontend y el backend se sirvan desde la VM.
+Abre <http://localhost:5173>. El navegador pedira permiso para la webcam. Por defecto, la app usa `https://eggsofialucas.duckdns.org/api`; en ese dominio y en un hostname `*.cloudapp.azure.com`, usa `/api` en el mismo origen para que el frontend y el backend se sirvan desde la VM.
 
 Si el backend corre en otra maquina, edita `API_URL` en `app.js` o abre la pagina con una variable global antes de cargar el script:
 
